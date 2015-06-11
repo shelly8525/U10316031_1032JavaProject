@@ -1,11 +1,21 @@
 
-import java.util.*;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.GregorianCalendar;
-
+ 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+ 
 public class calendar extends JFrame implements ActionListener {
 	//月份跟年份的下拉表
 	private JComboBox yearBox = new JComboBox();
@@ -156,7 +166,7 @@ public class calendar extends JFrame implements ActionListener {
 					button_day[i].setText(count + "");
 				}
 				else{
-					//���L����������
+					//其他日期用紅色
 					button_day[i].setForeground(Color.red);
 					button_day[i].setText(count + "");
 				}
@@ -171,7 +181,7 @@ public class calendar extends JFrame implements ActionListener {
 		
 		//沒有日期的空白
 		if(day_week == 0){
-			//�p�G���@���O�P��,�����������a��
+			//如果第一天是周日,後面空白的地方
 			for(int i = days;i < 42;i++){
 				button_day[i].setText(" ");
 			}
@@ -202,7 +212,7 @@ public class calendar extends JFrame implements ActionListener {
 		}
 	}
 	public static void main(String[] args){
-		JFrame frame = new JFrame();
+		calendar frame = new calendar();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
