@@ -60,10 +60,10 @@ public class calendar extends JFrame implements ActionListener {
 			monthBox.addItem(i1+"");
 		}
 		
-		//�U������������
+		//下拉表示的月份
 		monthBox.setSelectedIndex(now_month);
 		
-		//���U���������s������
+		//排下拉表跟按鈕的版面
 		JPanel panel1 = new JPanel();
 		panel1.add(yearLabel);
 		panel1.add(yearBox);
@@ -72,14 +72,14 @@ public class calendar extends JFrame implements ActionListener {
 		panel1.add(OkButton);
 		panel1.add(TodayButton);
 		
-		//�]���s��������
+		//設按鈕的監聽器
 		OkButton.addActionListener(this);
 		TodayButton.addActionListener(this);
 		
-		//���m�������O
+		//放置日期面板
 		JPanel panel_day = new JPanel();
 		panel_day.setLayout(new GridLayout(7,7,3,3));
-		//�]�m�P���W��
+		//設置星期名稱
 		for(int i2 = 0;i2 < 7;i2++){
 			button_week[i2] = new JButton(" ");
 			button_week[i2].setText(week[i2]);
@@ -89,16 +89,16 @@ public class calendar extends JFrame implements ActionListener {
 		button_week[0].setForeground(Color.red);
 		button_week[6].setForeground(Color.red);
 		
-		//�]�m���������O��
+		//設置日期到面板李
 		for(int i3 = 0;i3 < 42;i3++){
 			button_day[i3] = new JButton(" ");
 			panel_day.add(button_day[i3]);
 		}
 		
-		//�I�spaintDay���k
+		//呼叫paintDay方法
 		this.paintDay();
 		
-		//�������]�����O���W��
+		//把剛剛設的面板放上來
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new BorderLayout());
 		panel2.add(panel_day,BorderLayout.SOUTH);
@@ -108,30 +108,30 @@ public class calendar extends JFrame implements ActionListener {
 	
 	private void paintDay(){
 		if(todayFlag){
-			//�������������� �S���I�����L������
+			//顯示今天的日期 沒有點選其他日期時
 			year_int = now_year + "";
             month_int = now_month;
 		}
 		else{
-			//��������
+			//選擇日期
 			year_int = yearBox.getSelectedItem().toString();
 			month_int = monthBox.getSelectedIndex();
 		}
 		
 		int year_sel = Integer.parseInt(year_int) - 1900;
-		//�������@��
+		//找到第一天
 		Date firstDay = new Date(year_sel,month_int,1);
-		//���@��calender
+		//建一個calender
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(firstDay);
-		int days;//���������X��
+		int days;//那個月有幾天
 		int day_week = 0;
 		
-		//�C�������X��
+		//每個月有幾天
 		if(month_int == 0 || month_int == 2 || month_int == 4 || month_int == 6 ||  month_int == 7 ||  month_int == 9 ||  month_int == 11){
 			days = 31;
 		}
-		else if(month_int == 3 ||�@month_int ==�@5�@|| month_int == 8 || month_int == 10){
+		else if(month_int == 3 || month_int == 5 || month_int == 8 || month_int == 10){
 			days = 30;
 		}
 		else{
@@ -142,15 +142,15 @@ public class calendar extends JFrame implements ActionListener {
 				days = 28;
 			}
 		}
-		//getDay()���k ���@���O�P���X
+		//getDay()方法 第一天是星期幾
 		day_week = firstDay.getDay();
 		int count = 1;
 		
-		//�C�����C��
-		for(int i = day_week;i <�@day_week + days;count++,i++){
+		//每天的顏色
+		for(int i = day_week;i <day_week + days;count++,i++){
 			if(i % 7 == 0 || i == 6 || i == 13 || i == 20 || i == 27 || i == 34 || i == 41){
-				//�����]����
-				if(i == day_week = now_date.getDate() - 1){
+				//今天設藍色
+				if(i == day_week + now_Date.getDate() - 1){
 					button_day[i].setForeground(Color.blue);
 					button_day[i].setText(count + "");
 				}
@@ -161,27 +161,27 @@ public class calendar extends JFrame implements ActionListener {
 				}
 			}
 			else{
-				if(i == day_week + now_date.getDate() - 1){
+				if(i == day_week + now_Date.getDate() - 1){
 					button_day[i].setForeground(Color.blue);
-					butTexton_day[i].setText(count + "");
+					button_day[i].setText(count + "");
 				}
 			}
 		}
 		
-		//�S������������
+		//沒有日期的空白
 		if(day_week == 0){
 			//�p�G���@���O�P��,�����������a��
-			for(int i = days;i <�@42;i++){
-				buttonn_day[i].setText(" ");
+			for(int i = days;i < 42;i++){
+				button_day[i].setText(" ");
 			}
 		}
 		else{
-			//�p�G���@�����O�P��,�e���������a��
+			//如果第一天不是周日,前面空白的地方
 			for(int i = 0;i <day_week;i++){
-				button_day[i].setText("�@");
-			}//�����������a��
+				button_day[i].setText(" ");
+			}//後面空白的地方
 			for(int i = day_week + days;i < 42;i++){
-				button_days[i].setText(" ");
+				button_day[i].setText(" ");
 			}
 		}
 		}
