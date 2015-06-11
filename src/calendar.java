@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.GregorianCalendar;
 
 public class calendar extends JFrame implements ActionListener {
 	//月份跟年份的下拉表
@@ -188,7 +189,17 @@ public class calendar extends JFrame implements ActionListener {
 	
 	
 	public void actionPerformed(ActionEvent e){
-		
+		//查看的功能
+		if(e.getSource() == OkButton){
+			todayFlag = false;
+			this.paintDay();
+		}//今天的功能
+		else if(e.getSource() == TodayButton){
+			todayFlag = true;
+			yearBox.setSelectedIndex(10);
+			monthBox.setSelectedIndex(now_month);
+			this.paintDay();
+		}
 	}
 	public static void main(String[] args){
 		JFrame frame = new JFrame();
