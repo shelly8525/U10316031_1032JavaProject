@@ -132,10 +132,10 @@ public class calendar extends JFrame implements ActionListener {
 		int year_sel = Integer.parseInt(year_int) - 1900;
 		//找到第一天
 		Date firstDay = new Date(year_sel,month_int,1);
-		//建一個calender
+		//建一個calendar
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(firstDay);
-		int days;//那個月有幾天
+		int days = 0;//那個月有幾天
 		int day_week = 0;
 		
 		//每個月有幾天
