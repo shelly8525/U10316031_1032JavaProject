@@ -5,11 +5,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
- 
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -40,9 +39,10 @@ public class calendar extends JFrame implements ActionListener {
 	private String year_int = null;
 	//保存使用者選擇的月份
 	private int month_int;
+	JPanel panel_day = new JPanel();
+	Calendar cal = Calendar.getInstance();
 	//建構子
 	public calendar(){
-		super();
 		this.setTitle("日曆");
 		this.init();
 		this.setLocation(500,300);
@@ -88,7 +88,7 @@ public class calendar extends JFrame implements ActionListener {
 		TodayButton.addActionListener(this);
 		
 		//放置日期面板
-		JPanel panel_day = new JPanel();
+		
 		panel_day.setLayout(new GridLayout(7,7,3,3));
 		//設置星期名稱
 		for(int i2 = 0;i2 < 7;i2++){
@@ -99,11 +99,15 @@ public class calendar extends JFrame implements ActionListener {
 		}
 		button_week[0].setForeground(Color.red);
 		button_week[6].setForeground(Color.red);
-		
 		//設置日期到面板李
+
 		for(int i3 = 0;i3 < 42;i3++){
+			
 			button_day[i3] = new JButton(" ");
+			String str = Integer.toString(i3);
+			button_day[i3].setText(str);
 			panel_day.add(button_day[i3]);
+			
 		}
 		
 		//呼叫paintDay方法
@@ -156,27 +160,24 @@ public class calendar extends JFrame implements ActionListener {
 		//getDay()方法 第一天是星期幾
 		day_week = firstDay.getDay();
 		int count = 1;
+		String x = String.valueOf(monthBox.getSelectedItem());
+		int mm = Integer.parseInt(x);
+		
 		
 		//每天的顏色
-		for(int i = day_week;i <day_week + days;count++,i++){
-			if(i % 7 == 0 || i == 6 || i == 13 || i == 20 || i == 27 || i == 34 || i == 41){
-				//今天設藍色
-				if(i == day_week + now_Date.getDate() - 1){
-					button_day[i].setForeground(Color.blue);
-					button_day[i].setText(count + "");
-				}
-				else{
-					//其他日期用紅色
+		for(int i = day_week;i < day_week + days;count++,i++){
+			if(i % 7 == 0 || i % 7 == 6){
+				//其他日期用紅色
 					button_day[i].setForeground(Color.red);
 					button_day[i].setText(count + "");
-				}
 			}
 			else{
-				if(i == day_week + now_Date.getDate() - 1){
-					button_day[i].setForeground(Color.blue);
-					button_day[i].setText(count + "");
-				}
+	            	button_day[i].setForeground(Color.black);
+	            	button_day[i].setText(count + "");
 			}
+			
+			
+			
 		}
 		
 		//沒有日期的空白
@@ -201,6 +202,9 @@ public class calendar extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e){
 		//查看的功能
 		if(e.getSource() == OkButton){
+			for(int i = 0;i<42;i++){
+				button_day[i].setText("");
+			}
 			todayFlag = false;
 			this.paintDay();
 		}//今天的功能
